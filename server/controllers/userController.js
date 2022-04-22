@@ -35,6 +35,9 @@ class UserController {
     }
     async login(req, res, next) {
         const { login, password } = req.body;
+        if (!login) {
+            return next(ApiError.badRequest('Введите логин'));
+        }
         const user = await Admin.findOne({ where: { login } });
         if (!user) {
             return next(ApiError.badRequest('Пользователя с таким логином не существует'));
