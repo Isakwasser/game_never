@@ -1,5 +1,6 @@
 const ApiError = require("../error/ApiError");
 const { Question } = require("../models/models");
+const { Sequelize } = require('sequelize');
 
 class QuestionController {
     async create(req, res, next) {
@@ -30,6 +31,32 @@ class QuestionController {
             return next(ApiError.badRequest('Не задан ID'));
         }
         res.json(id)
+    }
+    async getToPlay(req, res, next) {
+        const { categoryId } = req.query;
+        try {
+            let question;
+            if (categoryId) {
+                question = await Question.findAll({
+                    where: { categoryId },
+                    order: [
+                        [Sequelize.literal('RANDOM()')]
+                    ],
+                    limit: 1,
+                });
+            }
+            if (!categoryId) {
+                question = await Question.findAll({
+                    order: [
+                        [Sequelize.literal('RANDOM()')]
+                    ],
+                    limit: 1,
+                });
+            }
+            return res.json(question);
+        } catch (err) {
+            return next(ApiError.badRequest('Произошла ошибка логики на сервере =('));
+        }
     }
 }
 
