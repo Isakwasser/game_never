@@ -2,6 +2,13 @@ const ApiError = require("../error/ApiError");
 const { Question } = require("../models/models");
 
 class QuestionController {
+    async create(req, res, next) {
+        let { title, text, categoryId } = req.body;
+        let question;
+        categoryId = categoryId || 1;
+        question = await Question.create({ title, text, categoryId });
+        return res.json(question);
+    }
     async getAll(req, res) {
         let { page, limit, categoryId } = req.query;
         page = page || 1;

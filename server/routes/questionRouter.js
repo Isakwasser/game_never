@@ -3,8 +3,8 @@ const router = new Router();
 const questionController = require('../controllers/questionController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-router.post('/',);
+router.post('/create', authMiddleware, questionController.create);
 router.get('/getAll', authMiddleware, questionController.getAll);
-router.get('/:id', questionController.getOne);
+router.get('/getOne', questionController.getOne);
 
 module.exports = router;
