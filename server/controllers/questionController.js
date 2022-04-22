@@ -19,7 +19,9 @@ class QuestionController {
         if (categoryId) {
             questions = await Question.findAndCountAll({ where: { categoryId }, limit, offset });
         }
-        questions = await Question.findAndCountAll({ limit, offset });
+        if (!categoryId) {
+            questions = await Question.findAndCountAll({ limit, offset });
+        }
         return res.json(questions)
     }
     async getOne(req, res, next) {
