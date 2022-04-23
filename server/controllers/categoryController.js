@@ -7,6 +7,10 @@ class CategoryController {
         if (!name) {
             return res.json({ message: 'Введите название' });
         }
+        const candidate = await Category.findOne({ where: { name } });
+        if (candidate) {
+            return res.json({ message: 'Категория с таким названием уже существует' });
+        }
         let categories;
         categories = await Category.create({ name, description });
         return res.json(categories);
