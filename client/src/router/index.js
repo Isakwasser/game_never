@@ -3,10 +3,16 @@ import AdminView from '../views/Admin/AdminView.vue'
 import LoginView from '../views/Admin/LoginView.vue'
 import QuestionsView from '../views/Admin/QuestionsView.vue'
 import CategoriesView from '../views/Admin/CategoriesView.vue'
+import UserView from '../views/User/UserView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    {
+      path: '/',
+      name: 'game',
+      component: UserView,
+    },
     {
       path: '/admin',
       name: 'admin',
