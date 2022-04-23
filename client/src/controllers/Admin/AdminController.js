@@ -41,7 +41,9 @@ export default {
                         self.token = data.token;
                         localStorage.setItem('token', data.token);
                         self.setInfo({ status: 'success', message: 'Пользователь авторизован' });
-                        self.$router.push({ name: 'questions' });
+                        if (self.$router.currentRoute.value.name == 'login') {
+                            self.$router.push({ name: 'questions' });
+                        }
                     }
                     if (data.message) {
                         self.setInfo({ status: 'warning', message: data.message });

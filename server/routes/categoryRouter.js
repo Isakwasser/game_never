@@ -3,7 +3,7 @@ const router = new Router();
 const categoryController = require('../controllers/categoryController');
 
 router.post('/create', categoryController.create);
-router.get('/', categoryController.getAll);
+router.post('/getAll', categoryController.getAll);
 router.get('/:id', categoryController.getOne);
 
 module.exports = router;

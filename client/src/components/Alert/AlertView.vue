@@ -1,5 +1,5 @@
 <template>
-  <div class="position-absolute top-0 end-0">
+  <div class="position-absolute bottom-0 end-0">
     <div
       v-for="(el, i) in info"
       v-bind:key="i"
