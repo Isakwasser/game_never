@@ -64,7 +64,7 @@
                   class="form-control"
                   id="addTitleModalInput"
                   aria-describedby="addTitleModal"
-                  v-model="title"
+                  v-model.trim="title"
                 />
                 <div id="addTitleModal" class="form-text">Заглавие вопроса</div>
               </div>
@@ -74,7 +74,7 @@
                   type="text"
                   class="form-control"
                   id="addTextModalInput"
-                  v-model="text"
+                  v-model.trim="text"
                 />
               </div>
             </form>

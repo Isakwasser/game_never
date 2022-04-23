@@ -19,8 +19,6 @@ export default {
                 body: {},
                 onSuccess: function (data) {
                     if (data.count) {
-                        console.log(data)
-                        console.log(data.rows[0])
                         self.setInfo({ status: 'success', message: 'Данные загружены' });
                         self.data = data;
                     }

@@ -4,14 +4,22 @@ const { Sequelize } = require('sequelize');
 
 class QuestionController {
     async create(req, res, next) {
-        let { title, text, categoryId } = req.body;
-        if (!text) {
-            return res.json({ message: 'Введите текст' });
+        try {
+            let { title, text, categoryId } = req.body;
+            if (!text) {
+                return res.json({ message: 'Введите текст' });
+            }
+            const checkQuestion = await Question.findOne({ where: { text } });
+            if (checkQuestion) {
+                return res.json({ message: 'Вопрос уже существует' });
+            }
+            let question;
+            categoryId = categoryId || 1;
+            question = await Question.create({ title, text, categoryId });
+            return res.json(question);
+        } catch (error) {
+            return res.json({ message: 'Произошла ошибка' });
         }
-        let question;
-        categoryId = categoryId || 1;
-        question = await Question.create({ title, text, categoryId });
-        return res.json(question);
     }
     async getAll(req, res) {
         let { page, limit, categoryId } = req.query;

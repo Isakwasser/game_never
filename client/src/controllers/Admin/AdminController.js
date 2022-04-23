@@ -49,8 +49,8 @@ export default {
                         self.setInfo({ status: 'warning', message: data.message });
                     }
                 },
-                catch: function (err) {
-                    console.log(err);
+                catch: function () {
+                    self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
                 },
             }
             fetchCheck(options);

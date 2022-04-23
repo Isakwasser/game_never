@@ -60,7 +60,7 @@
                   class="form-control"
                   id="addTitleModalInput"
                   aria-describedby="addTitleModal"
-                  v-model="name"
+                  v-model.trim="name"
                 />
                 <div id="addTitleModal" class="form-text">
                   Название категории
@@ -74,7 +74,7 @@
                   type="text"
                   class="form-control"
                   id="addTextModalInput"
-                  v-model="description"
+                  v-model.trim="description"
                 />
               </div>
             </form>

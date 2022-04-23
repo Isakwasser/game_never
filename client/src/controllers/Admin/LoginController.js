@@ -34,7 +34,6 @@ export default {
                         }
                     },
                     catch: (err) => {
-                        console.log(err);
                         self.setInfo({ status: 'success', message: 'Возникла ошибка' });
                     },
                 };

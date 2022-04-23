@@ -43,7 +43,6 @@ export default {
                 onSuccess: function (data) {
 
                     if (data.id) {
-                        console.log(data);
                         self.setInfo({ status: 'success', message: 'Вопрос добавлен' });
                         self.text = "";
                         self.title = "Я никогда не";

@@ -12,19 +12,24 @@ class CategoryController {
         return res.json(categories);
     }
     async getAll(req, res) {
-        let { page, limit } = req.query;
-        page = page || 1;
-        limit = limit || 30;
-        let offset = page * limit - limit;
+        try {
+            let { page, limit } = req.query;
+            page = page || 1;
+            limit = limit || 30;
+            let offset = page * limit - limit;
 
-        let categories = await Category.findAndCountAll({
-            limit, page,
-            include: [{
-                model: Question,
-                attributes: ['id']
-            }]
-        });
-        return res.json(categories)
+            let categories = await Category.findAndCountAll({
+                limit, page,
+                order: [['id', 'ASC']],
+                include: [{
+                    model: Question,
+                    attributes: ['id']
+                }]
+            });
+            return res.json(categories)
+        } catch (error) {
+            res.json({ message: 'Произошла ошибка' });
+        }
     }
     async getOne(req, res) {
 
