@@ -4,8 +4,8 @@ export default {
     props: ['setToken', 'setInfo'],
     data() {
         return {
-            login: 'user',
-            password: 'root',
+            login: '',
+            password: '',
         }
     },
     methods: {

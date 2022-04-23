@@ -40,6 +40,7 @@ export default {
                         self.token = data.token;
                         localStorage.setItem('token', data.token);
                         self.setInfo({ status: 'success', message: 'Пользователь авторизован' });
+                        self.$router.push({ name: 'questions' });
                     }
                     if (data.message) {
                         self.setInfo({ status: 'warning', message: data.message });
@@ -55,6 +56,7 @@ export default {
     mounted() {
         const token = localStorage.getItem('token');
         if (!token) {
+            this.$router.push({ name: 'login' });
             return this.setInfo({ status: 'warning', message: 'Необходима регистрация' });
         }
         this.updateToken(token);
