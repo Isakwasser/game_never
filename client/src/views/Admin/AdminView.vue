@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="col-10">
-        <router-view />
+        <router-view :setToken="setToken" />
       </div>
     </div>
   </div>

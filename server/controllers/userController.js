@@ -36,15 +36,15 @@ class UserController {
     async login(req, res, next) {
         const { login, password } = req.body;
         if (!login) {
-            return next(ApiError.badRequest('Введите логин'));
+            return res.json({ message: 'Введите логин' });
         }
         const user = await Admin.findOne({ where: { login } });
         if (!user) {
-            return next(ApiError.badRequest('Пользователя с таким логином не существует'));
+            return res.json({ message: 'Пользователя с таким логином не существует' });
         }
         let comparePassword = bcrypt.compareSync(password, user.password);
         if (!comparePassword) {
-            return next(ApiError.badRequest('Указан неверный пароль'));
+            return res.json({ message: 'Указан неверный пароль' });
         }
         const token = generateJwt(user.id, user.login);
         return res.json({ token });

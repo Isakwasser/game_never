@@ -1,6 +1,7 @@
 import LoginFetch from '../../fetch/LoginFetch';
 
 export default {
+    props: ['setToken'],
     data() {
         return {
             login: 'user',
@@ -11,35 +12,41 @@ export default {
     },
     methods: {
         tryLogin() {
-            if (!this.login) {
-                this.addErrorClass(this.$refs.login)
+            const self = this;
+            if (!self.login) {
+                self.addErrorClass(self.$refs.login)
             }
-            if (!this.password) {
-                this.addErrorClass(this.$refs.password)
+            if (!self.password) {
+                self.addErrorClass(self.$refs.password)
             }
-            if (this.login && this.password) {
+            if (self.login && self.password) {
                 let options = {
                     body: {
-                        login: this.login,
-                        password: this.password,
+                        login: self.login,
+                        password: self.password,
                     },
                     onSuccess: (data) => {
                         console.log(data);
                         if (data.token) {
-                            localStorage.setItem('token', data.token);
-                            console.log('Токен установлен в localStorage');
-                            this.info.push('success');
+                            self.setToken(data.token);
+                            self.info.push({ status: 'success', message: 'Токен установлен' });
                             setTimeout(() => {
-                                this.info.shift();
-                            }, this.infoDelay)
+                                self.info.shift();
+                            }, self.infoDelay)
+                        }
+                        if (data.message) {
+                            self.info.push({ status: 'warning', message: data.message });
+                            setTimeout(() => {
+                                self.info.shift();
+                            }, self.infoDelay)
                         }
                     },
                     catch: (err) => {
                         console.log(err);
-                        this.info.push('Возникла ошибка');
+                        self.info.push({ status: 'success', message: 'Возникла ошибка' });
                         setTimeout(() => {
-                            this.info.shift();
-                        }, this.infoDelay)
+                            self.info.shift();
+                        }, self.infoDelay)
                     },
                 };
                 LoginFetch(options);
