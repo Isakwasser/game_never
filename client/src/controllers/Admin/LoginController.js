@@ -1,13 +1,11 @@
 import LoginFetch from '../../fetch/LoginFetch';
 
 export default {
-    props: ['setToken'],
+    props: ['setToken', 'setInfo'],
     data() {
         return {
             login: 'user',
             password: 'root',
-            info: [],
-            infoDelay: 5000,
         }
     },
     methods: {
@@ -26,27 +24,17 @@ export default {
                         password: self.password,
                     },
                     onSuccess: (data) => {
-                        console.log(data);
                         if (data.token) {
                             self.setToken(data.token);
-                            self.info.push({ status: 'success', message: 'Токен установлен' });
-                            setTimeout(() => {
-                                self.info.shift();
-                            }, self.infoDelay)
+                            self.setInfo({ status: 'success', message: 'Токен установлен' });
                         }
                         if (data.message) {
-                            self.info.push({ status: 'warning', message: data.message });
-                            setTimeout(() => {
-                                self.info.shift();
-                            }, self.infoDelay)
+                            self.setInfo({ status: 'warning', message: data.message });
                         }
                     },
                     catch: (err) => {
                         console.log(err);
-                        self.info.push({ status: 'success', message: 'Возникла ошибка' });
-                        setTimeout(() => {
-                            self.info.shift();
-                        }, self.infoDelay)
+                        self.setInfo({ status: 'success', message: 'Возникла ошибка' });
                     },
                 };
                 LoginFetch(options);
