@@ -1,5 +1,5 @@
 const ApiError = require("../error/ApiError");
-const { Question } = require("../models/models");
+const { Question, Category } = require("../models/models");
 const { Sequelize } = require('sequelize');
 
 class QuestionController {
@@ -21,7 +21,10 @@ class QuestionController {
             questions = await Question.findAndCountAll({ where: { categoryId }, limit, offset });
         }
         if (!categoryId) {
-            questions = await Question.findAndCountAll({ limit, offset });
+            questions = await Question.findAndCountAll({
+                limit, offset,
+                include: [{ model: Category }],
+            });
         }
         return res.json(questions)
     }
