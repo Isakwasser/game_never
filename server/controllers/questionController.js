@@ -40,6 +40,14 @@ class QuestionController {
         }
         return res.json(questions)
     }
+    async delete(req, res) {
+        const { id } = req.body;
+        if (!id) {
+            return res.json({ message: 'Не указано ID' });
+        }
+        const question = await Question.destroy({ where: { id } });
+        res.json({ question, success: true });
+    }
     async getOne(req, res, next) {
         const { id } = req.query;
         if (!id) {

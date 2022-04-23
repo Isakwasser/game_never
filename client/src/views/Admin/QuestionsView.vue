@@ -60,6 +60,7 @@
           <th>text</th>
           <th>positive</th>
           <th>negative</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -70,6 +71,14 @@
           <td>{{ el.text }}</td>
           <td>{{ el.ratingPlus }}</td>
           <td>{{ el.ratingMinus }}</td>
+          <td>
+            <i class="fas fa-pen text-primary me-1" title="Редактировать"></i>
+            <i
+              class="fas fa-trash-alt text-danger"
+              title="Удалить"
+              @click="deleteItem(el.id)"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>

@@ -1,5 +1,6 @@
 import fetchQuestions from '@/fetch/QuestionsFetch';
 import fetchAddQuestions from '@/fetch/QuestionsAddFetch';
+import fetchDeleteQuestion from '@/fetch/QuestionDeleteFetch';
 
 export default {
     props: ['token', 'setInfo'],
@@ -62,6 +63,32 @@ export default {
                 },
             };
             fetchAddQuestions(options);
+        },
+        deleteItem(id) {
+            if (!confirm('Вы уверены, что хотите удалить этот элемент?' + id)) {
+                return
+            }
+            const self = this;
+            let options = {
+                token: self.token,
+                body: {
+                    id: id,
+                },
+                onSuccess: function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        self.setInfo({ status: 'success', message: 'Вопрос удален' });
+                        self.updateTable();
+                    }
+                    if (data.message) {
+                        self.setInfo({ status: 'warning', message: data.message });
+                    }
+                },
+                catch: function (err) {
+                    self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
+                },
+            };
+            fetchDeleteQuestion(options);
         },
         hideModal(elem) {
             let modal = new bootstrap.Modal(elem)
