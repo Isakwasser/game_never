@@ -22,6 +22,8 @@ export default {
             localStorage.removeItem('token');
             this.token = undefined;
             this.isLogin = false;
+            this.setInfo({ status: 'success', message: 'Пользователь вышел из аккаунта' })
+            this.$router.push({ name: 'login' });
         },
         setInfo(info) {
             this.info.push(info);
@@ -34,7 +36,6 @@ export default {
             let options = {
                 token: token,
                 onSuccess: function (data) {
-                    console.log(data);
                     if (data.token) {
                         self.isLogin = true;
                         self.token = data.token;

@@ -26,7 +26,8 @@ export default {
                     onSuccess: (data) => {
                         if (data.token) {
                             self.setToken(data.token);
-                            self.setInfo({ status: 'success', message: 'Токен установлен' });
+                            self.setInfo({ status: 'success', message: 'Пользователь авторизовался' });
+                            self.$router.push({ name: 'questions' });
                         }
                         if (data.message) {
                             self.setInfo({ status: 'warning', message: data.message });

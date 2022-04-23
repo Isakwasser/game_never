@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-10">
-        <router-view :setToken="setToken" :setInfo="setInfo" />
+        <router-view :setToken="setToken" :setInfo="setInfo" :token="token" />
       </div>
     </div>
     <AlertView :info="info" />
