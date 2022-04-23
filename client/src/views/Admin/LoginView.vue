@@ -17,7 +17,7 @@
           <div class="col-md-5">Пароль:</div>
           <div class="col-md-7" ref="password">
             <input
-              type="text"
+              type="password"
               class="w-100"
               v-model.trim="password"
               placeholder="Введите пароль"

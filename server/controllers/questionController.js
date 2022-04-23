@@ -5,6 +5,9 @@ const { Sequelize } = require('sequelize');
 class QuestionController {
     async create(req, res, next) {
         let { title, text, categoryId } = req.body;
+        if (!text) {
+            return res.json({ message: 'Введите текст' });
+        }
         let question;
         categoryId = categoryId || 1;
         question = await Question.create({ title, text, categoryId });
@@ -13,7 +16,7 @@ class QuestionController {
     async getAll(req, res) {
         let { page, limit, categoryId } = req.query;
         page = page || 1;
-        limit = limit || 10;
+        limit = limit || 30;
         let offset = page * limit - limit;
 
         let questions;

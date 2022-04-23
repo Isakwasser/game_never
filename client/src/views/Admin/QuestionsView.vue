@@ -42,6 +42,7 @@
       tabindex="-1"
       aria-labelledby="addingModalLabel"
       aria-hidden="true"
+      ref="addingModal"
     >
       <div class="modal-dialog">
         <div class="modal-content">
@@ -79,12 +80,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success"
-              data-bs-dismiss="modal"
-              @click="addItem"
-            >
+            <button type="button" class="btn btn-success" @click="addItem">
               Добавить
             </button>
           </div>

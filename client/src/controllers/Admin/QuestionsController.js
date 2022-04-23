@@ -1,5 +1,5 @@
-// import Vue from 'vue';
 import fetchQuestions from '@/fetch/QuestionsFetch';
+import fetchAddQuestions from '@/fetch/QuestionsAddFetch';
 
 export default {
     props: ['token', 'setInfo'],
@@ -18,7 +18,6 @@ export default {
                 token: token,
                 body: {},
                 onSuccess: function (data) {
-                    console.log(data.rows[0])
                     if (data.count) {
                         self.setInfo({ status: 'success', message: 'Данные загружены' });
                         self.data = data;
@@ -33,16 +32,22 @@ export default {
             };
             fetchQuestions(options);
         },
-        addItem(token = this.token) {
+        addItem() {
             const self = this;
             let options = {
-                token: token,
-                body: {},
+                token: self.token,
+                body: {
+                    title: self.title,
+                    text: self.text,
+                },
                 onSuccess: function (data) {
-                    console.log(data.rows[0])
-                    if (data.count) {
-                        self.setInfo({ status: 'success', message: 'Данные загружены' });
-                        self.data = data;
+
+                    if (data.id) {
+                        console.log(data);
+                        self.setInfo({ status: 'success', message: 'Вопрос добавлен' });
+                        self.text = "";
+                        self.title = "Я никогда не";
+                        self.updateTable();
                     }
                     if (data.message) {
                         self.setInfo({ status: 'warning', message: data.message });
@@ -52,8 +57,11 @@ export default {
                     self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
                 },
             };
-            // fetchQuestions(options);
-            this.updateTable();
+            fetchAddQuestions(options);
+        },
+        hideModal(elem) {
+            let modal = new bootstrap.Modal(elem)
+            modal.hide()
         }
     },
     watch: {

@@ -18,3 +18,6 @@
 </template>
 
 <script src="./AlertController.js"></script>
+<style scoped>
+@import "./Alert.css";
+</style>

@@ -26,3 +26,6 @@
 </template>
 
 <script src="../../controllers/Admin/AdminController.js"></script>
+<style>
+@import "@/styles/Admin/AdminView.css";
+</style>
