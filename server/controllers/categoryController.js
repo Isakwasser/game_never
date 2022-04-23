@@ -22,15 +22,16 @@ class CategoryController {
             limit = limit || process.env.ITEMS_PER_PAGE;
             let offset = page * limit - limit;
 
-            let categories = await Category.findAndCountAll({
-                limit, page,
+            const categories = await Category.findAndCountAll({
+                offset, limit,
                 order: [['id', 'ASC']],
                 include: [{
                     model: Question,
                     attributes: ['id']
                 }]
             });
-            return res.json(categories)
+            const count = await Category.count({});
+            return res.json({ count, rows: categories.rows });
         } catch (error) {
             res.json({ message: 'Произошла ошибка' });
         }

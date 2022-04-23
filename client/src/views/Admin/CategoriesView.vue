@@ -1,11 +1,50 @@
 <template>
   <div>
     <h2>Categories</h2>
-    <div>
+    <div class="d-flex">
+      <nav aria-label="Page navigation" v-if="numOfPages > 1">
+        <ul class="pagination m-0">
+          <li
+            class="page-item"
+            :class="{
+              disabled: page == 1,
+            }"
+            @click="prevPage"
+          >
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li
+            class="page-item"
+            v-for="(el, i) in pageItem"
+            v-bind:key="i"
+            :class="{
+              active: el == page,
+            }"
+            @click="changePage(el)"
+          >
+            <a class="page-link" href="#">
+              {{ el }}
+            </a>
+          </li>
+          <li
+            class="page-item"
+            :class="{
+              disabled: page == numOfPages,
+            }"
+            @click="nextPage"
+          >
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
       <!-- Button trigger modal -->
       <button
         type="button"
-        class="btn btn-success"
+        class="btn btn-success ms-auto"
         data-bs-toggle="modal"
         data-bs-target="#addingModal"
       >
