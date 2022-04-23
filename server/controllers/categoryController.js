@@ -17,7 +17,7 @@ class CategoryController {
     }
     async getAll(req, res) {
         try {
-            let { page, limit } = req.query;
+            let { page, limit } = req.body;
             page = page || 1;
             limit = limit || process.env.ITEMS_PER_PAGE;
             let offset = page * limit - limit;

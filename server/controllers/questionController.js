@@ -22,18 +22,19 @@ class QuestionController {
         }
     }
     async getAll(req, res) {
-        let { page, limit, categoryId } = req.query;
+        let { page, limit, categoryId } = req.body;
         page = page || 1;
         limit = limit || process.env.ITEMS_PER_PAGE;
         let offset = page * limit - limit;
 
         let questions;
         if (categoryId) {
-            questions = await Question.findAndCountAll({ where: { categoryId }, limit, offset });
+            questions = await Question.findAndCountAll({ where: { categoryId }, order: [['id', 'ASC']], limit, offset });
         }
         if (!categoryId) {
             questions = await Question.findAndCountAll({
                 limit, offset,
+                order: [['id', 'ASC']],
                 include: [{ model: Category }],
             });
         }

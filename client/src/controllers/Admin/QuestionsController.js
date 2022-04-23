@@ -8,6 +8,8 @@ export default {
             data: {},
             title: 'Я никогда не',
             text: '',
+            limit: 50,
+            page: 1,
         }
     },
     methods: {
@@ -16,7 +18,10 @@ export default {
             const self = this;
             let options = {
                 token: token,
-                body: {},
+                body: {
+                    page: self.page,
+                    limit: self.limit,
+                },
                 onSuccess: function (data) {
                     if (data.count) {
                         self.setInfo({ status: 'success', message: 'Данные загружены' });
@@ -61,6 +66,22 @@ export default {
         hideModal(elem) {
             let modal = new bootstrap.Modal(elem)
             modal.hide()
+        },
+        changePage(page) {
+            this.page = page;
+            this.updateTable();
+        },
+        prevPage() {
+            if (this.page > 1) {
+                this.page--;
+                this.updateTable();
+            }
+        },
+        nextPage() {
+            if (this.page < this.numOfPages) {
+                this.page++;
+                this.updateTable();
+            }
         }
     },
     watch: {
@@ -73,6 +94,41 @@ export default {
     computed: {
         tableData() {
             return this.data.rows;
+        },
+        numOfPages() {
+            if (this.data.count > 0) {
+                return Math.floor((this.data.count - 1) / this.limit + 1) || 1;
+            } else {
+                return 1
+            }
+        },
+        pageItem() {
+            let numOfPages = this.numOfPages;
+            let ans = [];
+            if (numOfPages <= 10) {
+                for (let i = 1; i <= numOfPages; i++) {
+                    ans.push(i);
+                }
+            } else {
+                ans.push(1);
+                ans.push(2);
+                if (this.page > 4) {
+                    ans.push('...');
+                }
+
+                for (let i = -1; i <= 1; i++) {
+                    if (this.page + i > 2 && this.page + i < numOfPages - 1) {
+                        ans.push(this.page + i);
+                    }
+                }
+
+                if (this.page < numOfPages - 3) {
+                    ans.push('...')
+                }
+                ans.push(numOfPages - 1);
+                ans.push(numOfPages);
+            }
+            return ans;
         }
     },
     mounted() {
