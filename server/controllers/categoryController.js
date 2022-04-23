@@ -15,7 +15,7 @@ class CategoryController {
         try {
             let { page, limit } = req.query;
             page = page || 1;
-            limit = limit || 30;
+            limit = limit || process.env.ITEMS_PER_PAGE;
             let offset = page * limit - limit;
 
             let categories = await Category.findAndCountAll({
