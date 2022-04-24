@@ -7,6 +7,7 @@ export default {
             token: undefined,
             info: [],
             infoDelay: 5000,
+            item: 1,
         }
     },
     methods: {
@@ -26,6 +27,7 @@ export default {
             this.$router.push({ name: 'login' });
         },
         setInfo(info) {
+            info.item = this.item++;
             this.info.push(info);
             setTimeout(() => {
                 this.info.shift();

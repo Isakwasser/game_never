@@ -1,9 +1,12 @@
 <template>
   <div class="position-absolute bottom-0 end-0">
     <div
-      v-for="(el, i) in info"
-      v-bind:key="i"
-      :class="'alert alert-dismissible fade show alert-' + el.status"
+      v-for="el in info"
+      :key="el.item"
+      :class="
+        'alert position-relative overflow-hidden alert-dismissible fade show alert-' +
+        el.status
+      "
       role="alert"
     >
       {{ el.message }}
@@ -13,6 +16,9 @@
         data-bs-dismiss="alert"
         aria-label="Close"
       ></button>
+      <div class="alert-bar w-100 position-absolute bottom-0 start-0">
+        <div class="w-100 bg-warning"></div>
+      </div>
     </div>
   </div>
 </template>
