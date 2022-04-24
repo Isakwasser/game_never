@@ -38,6 +38,7 @@
       category: {{ data[0].categoryId }}<br />
       likes: {{ data[0].ratingPlus }}<br />
       dislikes: {{ data[0].ratingMinus }}<br />
+      <router-link :to="{ name: 'admin' }">Админка</router-link>
     </div>
   </div>
 </template>
