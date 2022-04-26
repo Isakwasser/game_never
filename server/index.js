@@ -10,9 +10,6 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-});
 app.use('/api', router)
 
 /* Регистрация errorHandler в конце файла. Последний Middleware */
