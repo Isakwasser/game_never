@@ -199,7 +199,7 @@
                 <label for="updateTextModalInput" class="form-label"
                   >Category</label
                 >
-                <select v-model="categoryIdUpdate">
+                <select v-model="categoryIdUpdate" class="form-select">
                   <option v-for="(el, i) in categories" :value="el.id" :key="i">
                     {{ el.name }}
                   </option>
