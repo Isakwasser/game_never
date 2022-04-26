@@ -79,6 +79,7 @@
                 idUpdate = el.id;
                 titleUpdate = el.title;
                 textUpdate = el.text;
+                categoryIdUpdate = el.category.id;
               "
               data-bs-toggle="modal"
               data-bs-target="#updateModal"
@@ -193,6 +194,16 @@
                   id="updateTextModalInput"
                   v-model.trim="textUpdate"
                 />
+              </div>
+              <div class="mb-3">
+                <label for="updateTextModalInput" class="form-label"
+                  >Category</label
+                >
+                <select v-model="categoryIdUpdate">
+                  <option v-for="(el, i) in categories" :value="el.id" :key="i">
+                    {{ el.name }}
+                  </option>
+                </select>
               </div>
             </form>
           </div>

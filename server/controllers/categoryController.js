@@ -39,6 +39,16 @@ class CategoryController {
     async getOne(req, res) {
 
     }
+    async getPair(req, res) {
+        try {
+            const pairs = await Category.findAll({
+                attributes: ['id', 'name'],
+            });
+            return res.json(pairs);
+        } catch (error) {
+            res.json({ message: 'Произошла ошибка на сервере' });
+        }
+    }
 }
 
 module.exports = new CategoryController();

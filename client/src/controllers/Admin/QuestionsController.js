@@ -2,6 +2,7 @@ import fetchQuestions from '@/fetch/QuestionsFetch';
 import fetchAddQuestions from '@/fetch/QuestionsAddFetch';
 import fetchDeleteQuestion from '@/fetch/QuestionDeleteFetch';
 import fetchEditQuestion from '@/fetch/QuestionEditFetch';
+import fetchCategoryPair from '@/fetch/CategoryPairFetch';
 
 export default {
     props: ['token', 'setInfo'],
@@ -15,6 +16,8 @@ export default {
             idUpdate: 'undefined',
             titleUpdate: 'undefined',
             textUpdate: 'undefined',
+            categories: [],
+            categoryIdUpdate: undefined
         }
     },
     methods: {
@@ -76,6 +79,7 @@ export default {
                     id: self.idUpdate,
                     title: self.titleUpdate,
                     text: self.textUpdate,
+                    categoryId: self.categoryIdUpdate,
                 },
                 onSuccess: function (data) {
 
@@ -191,5 +195,23 @@ export default {
         if (this.token) {
             this.updateTable();
         }
+        const self = this;
+        let options = {
+            onSuccess: function (data) {
+                if (Array.isArray(data)) {
+                    self.categories = data;
+                }
+                if (data.message) {
+                    self.setInfo({ status: 'warning', message: data.message });
+                }
+            },
+            catch: function (err) {
+                console.log(err);
+                setTimeout(() => {
+                    fetchCategoryPair(options);
+                }, 5000);
+            },
+        };
+        fetchCategoryPair(options);
     }
 }
