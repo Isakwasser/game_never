@@ -34,11 +34,10 @@
       class="position-fixed bottom-0 end-0 text-end lh-1 pb-1"
       v-if="data.length"
     >
-      id: {{ data[0].id ? data[0].id : "" }}<br />
-      category: {{ data[0].categoryId ? data[0].categoryId : "" }}<br />
-      likes: {{ data[0].ratingPlus ? data[0].ratingPlus : "" }}<br />
-      dislikes: {{ data[0].ratingMinus ? data[0].ratingMinus : "" }}<br />
-      <router-link :to="{ name: 'admin' }">Админка</router-link>
+      id: {{ data[0] ? data[0].id : "..." }}<br />
+      category: {{ data[0] ? data[0].categoryId : "..." }}<br />
+      likes: {{ data[0] ? data[0].ratingPlus : "..." }}<br />
+      dislikes: {{ data[0] ? data[0].ratingMinus : "..." }}<br />
     </div>
     <router-link :to="{ name: 'admin' }" class="lh-1 pb-1">Админка</router-link>
   </div>
