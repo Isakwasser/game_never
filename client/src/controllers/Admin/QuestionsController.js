@@ -1,6 +1,7 @@
 import fetchQuestions from '@/fetch/QuestionsFetch';
 import fetchAddQuestions from '@/fetch/QuestionsAddFetch';
 import fetchDeleteQuestion from '@/fetch/QuestionDeleteFetch';
+import fetchEditQuestion from '@/fetch/QuestionEditFetch';
 
 export default {
     props: ['token', 'setInfo'],
@@ -11,6 +12,9 @@ export default {
             text: '',
             limit: 50,
             page: 1,
+            idUpdate: 'undefined',
+            titleUpdate: 'undefined',
+            textUpdate: 'undefined',
         }
     },
     methods: {
@@ -64,8 +68,33 @@ export default {
             };
             fetchAddQuestions(options);
         },
+        updateItem() {
+            const self = this;
+            let options = {
+                token: self.token,
+                body: {
+                    id: self.idUpdate,
+                    title: self.titleUpdate,
+                    text: self.textUpdate,
+                },
+                onSuccess: function (data) {
+
+                    if (data.success) {
+                        self.setInfo({ status: 'success', message: 'Вопрос изменен' });
+                        self.updateTable();
+                    }
+                    if (data.message) {
+                        self.setInfo({ status: 'warning', message: data.message });
+                    }
+                },
+                catch: function (err) {
+                    self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
+                },
+            };
+            fetchEditQuestion(options);
+        },
         deleteItem(id) {
-            if (!confirm('Вы уверены, что хотите удалить этот элемент?' + id)) {
+            if (!confirm('Вы уверены, что хотите удалить этот элемент?')) {
                 return
             }
             const self = this;
@@ -116,7 +145,7 @@ export default {
             if (newToken) {
                 this.updateTable(newToken);
             }
-        }
+        },
     },
     computed: {
         tableData() {

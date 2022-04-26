@@ -72,7 +72,17 @@
           <td>{{ el.ratingPlus }}</td>
           <td>{{ el.ratingMinus }}</td>
           <td>
-            <i class="fas fa-pen text-primary me-1" title="Редактировать"></i>
+            <i
+              class="fas fa-pen text-primary me-1"
+              title="Редактировать"
+              @click="
+                idUpdate = el.id;
+                titleUpdate = el.title;
+                textUpdate = el.text;
+              "
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            ></i>
             <i
               class="fas fa-trash-alt text-danger"
               title="Удалить"
@@ -130,6 +140,65 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-success" @click="addItem">
               Добавить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div
+      class="modal fade"
+      id="updateModal"
+      tabindex="-1"
+      aria-labelledby="updateModalLabel"
+      aria-hidden="true"
+      ref="updateModal"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel">Изменить запись</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="updateTitleModalInput" class="form-label"
+                  >Title</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updateTitleModalInput"
+                  aria-describedby="addTitleModal"
+                  v-model.trim="titleUpdate"
+                />
+                <div id="updateitleModal" class="form-text">
+                  Заглавие вопроса
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="updateTextModalInput" class="form-label"
+                  >Text</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updateTextModalInput"
+                  v-model.trim="textUpdate"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" @click="updateItem">
+              Изменить
             </button>
           </div>
         </div>

@@ -3,3 +3,7 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+td i.fas {
+    cursor: pointer;
+}

@@ -64,6 +64,9 @@ export default {
             this.$router.push({ name: 'login' });
             return this.setInfo({ status: 'warning', message: 'Необходима регистрация' });
         }
+        if (this.$route.name === 'admin') {
+            this.$router.push({ name: 'questions' })
+        }
         this.updateToken(token);
     }
 }

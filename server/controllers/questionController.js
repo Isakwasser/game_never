@@ -43,9 +43,56 @@ class QuestionController {
     async delete(req, res) {
         const { id } = req.body;
         if (!id) {
-            return res.json({ message: 'Не указано ID' });
+            return res.json({ message: 'Не указан ID' });
         }
         const question = await Question.destroy({ where: { id } });
+        res.json({ question, success: true });
+    }
+    async edit(req, res) {
+        const { id, title, text, categoryId } = req.body;
+        if (!id) {
+            return res.json({ message: 'Не указан ID' });
+        }
+        let question;
+        if (title && text && categoryId) {
+            question = await Question.update({ title, text, categoryId }, {
+                where: { id }
+            })
+        }
+        if (title && text && !categoryId) {
+            question = await Question.update({ title, text }, {
+                where: { id }
+            })
+        }
+        if (title && !text && categoryId) {
+            question = await Question.update({ title, categoryId }, {
+                where: { id }
+            })
+        }
+        if (title && !text && !categoryId) {
+            question = await Question.update({ title }, {
+                where: { id }
+            })
+        }
+        if (!title && text && categoryId) {
+            question = await Question.update({ text, categoryId }, {
+                where: { id }
+            })
+        }
+        if (!title && text && !categoryId) {
+            question = await Question.update({ text }, {
+                where: { id }
+            })
+        }
+        if (!title && !text && categoryId) {
+            question = await Question.update({ categoryId }, {
+                where: { id }
+            })
+        }
+        if (!title && !text && !categoryId) {
+            return res.json({ message: 'Данные для редактирования не заданы' });
+        }
+
         res.json({ question, success: true });
     }
     async getOne(req, res, next) {
