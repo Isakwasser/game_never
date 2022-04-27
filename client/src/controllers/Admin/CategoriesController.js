@@ -1,5 +1,7 @@
 import fetchCategories from '@/fetch/CategoriesFetch';
 import fetchAddCategories from '@/fetch/CategoriesAddFetch';
+import fetchEditCategory from '@/fetch/CategoryEditFetch';
+import fetchDeleteCategory from '@/fetch/CategoryDeleteFetch';
 
 export default {
     props: ['token', 'setInfo'],
@@ -8,6 +10,8 @@ export default {
             data: {},
             name: '',
             description: '',
+            nameUpdate: 'undefined',
+            descriptionUpdate: 'undefined',
             page: 1,
             limit: 50,
         }
@@ -62,6 +66,57 @@ export default {
                 },
             };
             fetchAddCategories(options);
+        },
+        updateItem() {
+            const self = this;
+            let options = {
+                token: self.token,
+                body: {
+                    id: self.idUpdate,
+                    name: self.nameUpdate,
+                    description: self.descriptionUpdate,
+                },
+                onSuccess: function (data) {
+
+                    if (data.success) {
+                        self.setInfo({ status: 'success', message: 'Категория изменена' });
+                        self.updateTable();
+                    }
+                    if (data.message) {
+                        self.setInfo({ status: 'warning', message: data.message });
+                    }
+                },
+                catch: function (err) {
+                    self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
+                },
+            };
+            fetchEditCategory(options);
+        },
+        deleteItem(id) {
+            if (!confirm('Вы уверены, что хотите удалить этот элемент?')) {
+                return
+            }
+            const self = this;
+            let options = {
+                token: self.token,
+                body: {
+                    id: id,
+                },
+                onSuccess: function (data) {
+                    console.log(data);
+                    if (data.success) {
+                        self.setInfo({ status: 'success', message: 'Вопрос удален' });
+                        self.updateTable();
+                    }
+                    if (data.message) {
+                        self.setInfo({ status: 'warning', message: data.message });
+                    }
+                },
+                catch: function (err) {
+                    self.setInfo({ status: 'warning', message: 'Произошла ошибка' });
+                },
+            };
+            fetchDeleteCategory(options);
         },
         changePage(page) {
             this.page = page;

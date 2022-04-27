@@ -36,6 +36,48 @@ class CategoryController {
             res.json({ message: 'Произошла ошибка' });
         }
     }
+    async delete(req, res) {
+        const { id } = req.body;
+        if (!id) {
+            return res.json({ message: 'Не указан ID' });
+        }
+        const questionCount = await Question.count({
+            where: {
+                categoryId: id,
+            }
+        });
+        if (questionCount) {
+            return res.json({
+                message: 'Сперва переместите вопросы в другие категории'
+            })
+        }
+        const category = await Category.destroy({ where: { id } });
+        res.json({ category, success: true });
+    }
+    async edit(req, res) {
+        const { id, name, description } = req.body;
+        if (!id) {
+            return res.json({ message: 'Не указан ID' });
+        }
+        let category;
+        if (name && description) {
+            category = await Category.update({ name, description }, {
+                where: { id }
+            })
+        }
+        if (name && !description) {
+            category = await Category.update({ name }, {
+                where: { id }
+            })
+        }
+        if (!name && description) {
+            category = await Category.update({ description }, {
+                where: { id }
+            })
+        }
+
+        res.json({ category, success: true });
+    }
     async getOne(req, res) {
 
     }

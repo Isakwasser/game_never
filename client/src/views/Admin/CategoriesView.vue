@@ -58,6 +58,7 @@
           <th>name</th>
           <th>description</th>
           <th>question count</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -66,6 +67,24 @@
           <td>{{ el.name }}</td>
           <td>{{ el.description }}</td>
           <td>{{ el.questions.length }}</td>
+          <td>
+            <i
+              class="fas fa-pen text-primary me-1"
+              title="Редактировать"
+              @click="
+                idUpdate = el.id;
+                nameUpdate = el.name;
+                descriptionUpdate = el.description;
+              "
+              data-bs-toggle="modal"
+              data-bs-target="#updateModal"
+            ></i>
+            <i
+              class="fas fa-trash-alt text-danger"
+              title="Удалить"
+              @click="deleteItem(el.id)"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -121,6 +140,65 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-success" @click="addItem">
               Добавить
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Update -->
+    <div
+      class="modal fade"
+      id="updateModal"
+      tabindex="-1"
+      aria-labelledby="updateModalLabel"
+      aria-hidden="true"
+      ref="updateModal"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel">Изменить запись</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="updateTitleModalInput" class="form-label"
+                  >Название</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updateTitleModalInput"
+                  aria-describedby="addTitleModal"
+                  v-model.trim="nameUpdate"
+                />
+                <div id="updateitleModal" class="form-text">
+                  Заглавие вопроса
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="updateTextModalInput" class="form-label"
+                  >Описание</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updateTextModalInput"
+                  v-model.trim="descriptionUpdate"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" @click="updateItem">
+              Изменить
             </button>
           </div>
         </div>
