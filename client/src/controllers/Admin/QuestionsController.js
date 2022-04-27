@@ -11,6 +11,7 @@ export default {
             data: {},
             title: 'Я никогда не',
             text: '',
+            categoryId: 1,
             limit: 50,
             page: 1,
             idUpdate: 'undefined',
@@ -52,6 +53,7 @@ export default {
                 body: {
                     title: self.title,
                     text: self.text,
+                    categoryId: self.categoryId,
                 },
                 onSuccess: function (data) {
 
@@ -59,6 +61,7 @@ export default {
                         self.setInfo({ status: 'success', message: 'Вопрос добавлен' });
                         self.text = "";
                         self.title = "Я никогда не";
+                        self.categoryId = 1;
                         self.updateTable();
                     }
                     if (data.message) {

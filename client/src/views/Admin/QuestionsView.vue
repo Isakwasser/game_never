@@ -136,6 +136,16 @@
                   v-model.trim="text"
                 />
               </div>
+              <div class="mb-3">
+                <label for="updateTextModalInput" class="form-label"
+                  >Category</label
+                >
+                <select v-model="categoryId" class="form-select">
+                  <option v-for="(el, i) in categories" :value="el.id" :key="i">
+                    {{ el.name }}
+                  </option>
+                </select>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
