@@ -3,3 +3,25 @@
     width: 100%;
     min-height: 100vh;
 }
+.islike i {
+    /* transition: all 0.3s; */
+}
+
+.islike i:hover {
+    animation: hoverElem 0.5s linear forwards;
+}
+
+@keyframes hoverElem {
+    0% {
+        transform: rotate(0);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}

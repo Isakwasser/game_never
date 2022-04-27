@@ -4,6 +4,7 @@ export default {
     data() {
         return {
             data: [],
+            showDeveloperData: false,
         }
     },
     methods: {
@@ -29,7 +30,16 @@ export default {
             alert('Ничего не произошло. кнопка не работает.')
         },
     },
+    watch: {
+        showDeveloperData(newValue) {
+            localStorage.setItem('showDeveloperData', newValue);
+        },
+    },
     mounted() {
+        let showDataInit = localStorage.getItem('showDeveloperData');
+        if (showDataInit === 'true') {
+            this.showDeveloperData = true;
+        }
         this.updateQuestion();
     }
 }

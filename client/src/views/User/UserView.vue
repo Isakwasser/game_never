@@ -15,31 +15,64 @@
         <h4>{{ data[0] ? data[0].text : "" }}</h4>
       </div>
       <div>
-        <button type="button" class="btn btn-success mx-1" @click="setLike">
-          =)
+        <button
+          type="button"
+          class="islike btn btn-danger mx-1"
+          @click="setDislike"
+        >
+          <i class="far fa-thumbs-down"></i>
         </button>
         <button
           type="button"
-          class="btn btn-primary mx-1"
+          class="btn btn-primary mx-3 fw-bold"
           @click="updateQuestion"
         >
           Дальше
         </button>
-        <button type="button" class="btn btn-danger mx-1" @click="setDislike">
-          =(
+        <button
+          type="button"
+          class="islike btn btn-success mx-1"
+          @click="setLike"
+        >
+          <i class="far fa-thumbs-up"></i>
         </button>
       </div>
     </div>
+    <div class="dropdown text-end">
+      <button
+        class="btn btn-secondary opacity-25"
+        type="button"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="dropdown-menu mw-100">
+        <li>
+          <a
+            class="dropdown-item text-truncate"
+            href="#"
+            @click="showDeveloperData = !showDeveloperData"
+            >{{ showDeveloperData ? "Скрыть" : "Показать" }} информацию
+            разработчика</a
+          >
+        </li>
+        <li>
+          <a class="dropdown-item text-truncate" href="/admin/login">Войти</a>
+        </li>
+      </ul>
+    </div>
     <div
       class="position-fixed bottom-0 end-0 text-end lh-1 pb-1"
-      v-if="data.length"
+      v-if="showDeveloperData && data.length"
     >
-      id: {{ data[0] ? data[0].id : "..." }}<br />
-      category: {{ data[0] ? data[0].categoryId : "..." }}<br />
-      likes: {{ data[0] ? data[0].ratingPlus : "..." }}<br />
-      dislikes: {{ data[0] ? data[0].ratingMinus : "..." }}<br />
+      <div>
+        id: {{ data[0] ? data[0].id : "..." }}<br />
+        category: {{ data[0] ? data[0].categoryId : "..." }}<br />
+        likes: {{ data[0] ? data[0].ratingPlus : "..." }}<br />
+        dislikes: {{ data[0] ? data[0].ratingMinus : "..." }}<br />
+      </div>
     </div>
-    <router-link :to="{ name: 'admin' }" class="lh-1 pb-1">Админка</router-link>
   </div>
 </template>
 
