@@ -7,6 +7,8 @@ router.post('/create', authMiddleware, questionController.create);
 router.post('/getAll', authMiddleware, questionController.getAll);
 router.post('/delete', authMiddleware, questionController.delete);
 router.post('/edit', authMiddleware, questionController.edit);
+router.post('/like', questionController.like);
+router.post('/dislike', questionController.dislike);
 router.get('/getOne', questionController.getOne);
 router.get('/getToPlay', questionController.getToPlay);
 

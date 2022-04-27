@@ -1,4 +1,6 @@
 import fetchPlay from "../../fetch/PlayFetch"
+import fetchLike from "../../fetch/LikeFetch"
+import fetchDislike from "../../fetch/DislikeFetch"
 
 export default {
     data() {
@@ -14,6 +16,8 @@ export default {
                 onSuccess: function (data) {
                     if (Array.isArray(data)) {
                         data = data[0];
+                        self.$refs.like.disabled = false;
+                        self.$refs.dislike.disabled = false;
                         self.data.unshift(data);
                     }
                 },
@@ -24,10 +28,50 @@ export default {
             fetchPlay(options);
         },
         setLike() {
-            alert('Ничего не произошло. кнопка не работает.')
+            this.$refs.like.disabled = true;
+            this.$refs.dislike.disabled = true;
+
+            const self = this;
+            let options = {
+                body: {
+                    id: self.data[0].id,
+                },
+                onSuccess: (data) => {
+                    if (data.message) {
+                        self.$refs.like.disabled = false;
+                        self.$refs.dislike.disabled = false;
+                    }
+                },
+                catch: (err) => {
+                    console.log(err);
+                    self.$refs.like.disabled = false;
+                    self.$refs.dislike.disabled = false;
+                }
+            };
+            fetchLike(options);
         },
         setDislike() {
-            alert('Ничего не произошло. кнопка не работает.')
+            this.$refs.like.disabled = true;
+            this.$refs.dislike.disabled = true;
+
+            const self = this;
+            let options = {
+                body: {
+                    id: self.data[0].id,
+                },
+                onSuccess: (data) => {
+                    if (data.message) {
+                        self.$refs.like.disabled = false;
+                        self.$refs.dislike.disabled = false;
+                    }
+                },
+                catch: (err) => {
+                    console.log(err);
+                    self.$refs.like.disabled = false;
+                    self.$refs.dislike.disabled = false;
+                }
+            };
+            fetchDislike(options);
         },
     },
     watch: {

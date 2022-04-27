@@ -95,6 +95,35 @@ class QuestionController {
 
         res.json({ question, success: true });
     }
+    async like(req, res) {
+        try {
+            const { id } = req.body;
+            if (!id) {
+                return res.json({ message: 'Не указан ID' });
+            }
+            const question = await Question.increment('ratingPlus', { where: { id } });
+            if (question) {
+                res.json({ question, success: true });
+            } else {
+                return res.json({ message: 'Вопрос не найден' });
+            }
+        } catch (error) {
+            return res.json({ message: '123' })
+        }
+
+    }
+    async dislike(req, res) {
+        const { id } = req.body;
+        if (!id) {
+            return res.json({ message: 'Не указан ID' });
+        }
+        const question = await Question.increment('ratingMinus', { where: { id } });
+        if (question) {
+            res.json({ question, success: true });
+        } else {
+            return res.json({ message: 'Вопрос не найден' });
+        }
+    }
     async getOne(req, res, next) {
         const { id } = req.query;
         if (!id) {

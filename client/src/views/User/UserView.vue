@@ -19,6 +19,7 @@
           type="button"
           class="islike btn btn-danger mx-1"
           @click="setDislike"
+          ref="dislike"
         >
           <i class="far fa-thumbs-down"></i>
         </button>
@@ -33,6 +34,7 @@
           type="button"
           class="islike btn btn-success mx-1"
           @click="setLike"
+          ref="like"
         >
           <i class="far fa-thumbs-up"></i>
         </button>
