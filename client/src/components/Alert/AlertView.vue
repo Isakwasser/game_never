@@ -1,5 +1,5 @@
 <template>
-  <div class="position-absolute bottom-0 end-0">
+  <div class="position-fixed bottom-0 end-0">
     <div
       v-for="el in info"
       :key="el.item"
