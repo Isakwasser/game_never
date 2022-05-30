@@ -15,7 +15,7 @@ app.use('/api', router)
 /* Регистрация errorHandler в конце файла. Последний Middleware */
 app.use(errorHandler);
 
-const start = async () => {
+const start = async() => {
     try {
         await sequelize.authenticate();
         await sequelize.sync();
