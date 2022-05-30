@@ -8,7 +8,10 @@
         translate-middle
         container
         text-center
+        user__center
+        user__center_active
       "
+      ref="user__center"
     >
       <div v-if="data.length">
         <h2>{{ data[0] ? data[0].title : "" }}</h2>

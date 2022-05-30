@@ -13,15 +13,18 @@ export default {
         updateQuestion() {
             const self = this;
             let options = {
-                onSuccess: function (data) {
+                onSuccess: function(data) {
                     if (Array.isArray(data)) {
+                        self.$refs.user__center.classList.remove('user__center_active');
+                        self.$refs.user__center.clientWidth;
                         data = data[0];
                         self.$refs.like.disabled = false;
                         self.$refs.dislike.disabled = false;
                         self.data.unshift(data);
+                        self.$refs.user__center.classList.add('user__center_active');
                     }
                 },
-                catch(err) {
+                catch (err) {
                     console.log(err);
                 },
             }
